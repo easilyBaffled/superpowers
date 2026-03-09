@@ -33,7 +33,9 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans OR superpowers:beads-ralph-execution to implement this plan task-by-task.
+> **For Claude:** DEFAULT SUB-SKILL: Use superpowers:beads-ralph-execution to implement this plan task-by-task.
+>
+> **Fallbacks:** Use superpowers:subagent-driven-development or superpowers:executing-plans only if user explicitly requests them or Beads/Ralph is unavailable.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -106,17 +108,20 @@ This metadata enables deterministic conversion from plan markdown to Beads epics
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, default to Beads + Ralph execution:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Three execution options:**
+**"Plan complete and saved to `docs/plans/<filename>.md`. Default next step is Beads + Ralph execution via superpowers:beads-ralph-execution.
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
+If you want a different execution path, choose one:
+1. Subagent-Driven (this session)
+2. Parallel Session (separate, executing-plans)
+3. Beads + Ralph (default)
+"**
 
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
-
-**3. Beads + Ralph** - Convert this plan to Beads epics/tasks, then execute each task with Ralph-managed fresh Claude/Cursor instances with spec+quality review gates
-
-**Which approach?"**
+**Default (no override):**
+- **REQUIRED SUB-SKILL:** Use superpowers:beads-ralph-execution
+- Convert plan to Beads epics/tasks first
+- Execute one task at a time with Ralph implementer + spec-review + quality-review loop
 
 **If Subagent-Driven chosen:**
 - **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
@@ -126,8 +131,3 @@ After saving the plan, offer execution choice:
 **If Parallel Session chosen:**
 - Guide them to open new session in worktree
 - **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
-
-**If Beads + Ralph chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:beads-ralph-execution
-- Convert plan to Beads epics/tasks first
-- Execute one task at a time with Ralph implementer + reviewer loop

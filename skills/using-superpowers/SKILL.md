@@ -77,11 +77,23 @@ These thoughts mean STOP—you're rationalizing:
 When multiple skills could apply, use this order:
 
 1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
-2. **Implementation skills second** (frontend-design, mcp-builder, beads-ralph-execution) - these guide execution
+2. **Implementation skills second** (beads-ralph-execution, frontend-design, mcp-builder) - these guide execution
 
 "Let's build X" → brainstorming first, then implementation skills.
-"Execute this plan through Beads + Ralph" → writing-plans, then beads-ralph-execution.
+"Execute this plan" → writing-plans, then beads-ralph-execution by default.
 "Fix this bug" → debugging first, then domain-specific skills.
+
+
+## Default Execution Workflow
+
+When implementation work is requested and a written plan exists (or should be created), the default execution path is:
+
+1. `superpowers:brainstorming`
+2. `superpowers:writing-plans`
+3. `superpowers:beads-ralph-execution`
+4. `superpowers:finishing-a-development-branch`
+
+Use `superpowers:subagent-driven-development` or `superpowers:executing-plans` only when the user explicitly requests those workflows or when Beads/Ralph is unavailable in the environment.
 
 ## Skill Types
 

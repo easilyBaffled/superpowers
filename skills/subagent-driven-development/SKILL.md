@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Use when executing implementation plans with independent tasks in the current session
+description: Use when executing implementation plans with independent tasks in the current session and the user explicitly chooses subagent-driven execution or Beads/Ralph is unavailable
 ---
 
 # Subagent-Driven Development

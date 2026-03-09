@@ -11,6 +11,12 @@ Execute implementation plans by converting tasks into Beads epics/tasks, then di
 
 **Announce at start:** "I'm using the beads-ralph-execution skill to run this plan through Beads and Ralph."
 
+## Default Selection Rule
+
+This is the default execution skill whenever a plan is ready for implementation and Beads/Ralph is available.
+
+Only defer to `subagent-driven-development` or `executing-plans` when the user explicitly opts out or infrastructure is unavailable.
+
 ## Required Inputs
 
 - Plan file path: `docs/plans/YYYY-MM-DD-<feature>.md`
