@@ -13,6 +13,7 @@ SKILLS=(
     "writing-plans"
     "dispatching-parallel-agents"
     "executing-plans"
+    "beads-ralph-execution"
     "requesting-code-review"
 )
 

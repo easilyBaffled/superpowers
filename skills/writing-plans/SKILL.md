@@ -33,7 +33,9 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **For Claude:** DEFAULT SUB-SKILL: Use superpowers:beads-ralph-execution to implement this plan task-by-task.
+>
+> **Fallbacks:** Use superpowers:subagent-driven-development or superpowers:executing-plans only if user explicitly requests them or Beads/Ralph is unavailable.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -94,17 +96,32 @@ git commit -m "feat: add specific feature"
 - Reference relevant skills with @ syntax
 - DRY, YAGNI, TDD, frequent commits
 
+## Beads/Ralph Metadata (Required)
+
+For every `### Task N` section, include:
+- **Epic:** short epic name for grouping in Beads
+- **Task ID:** stable slug (e.g., `auth-hook-install`)
+- **Dependencies:** `none` or explicit task IDs
+- **Acceptance Criteria:** concrete checklist
+
+This metadata enables deterministic conversion from plan markdown to Beads epics/tasks.
+
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, default to Beads + Ralph execution:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `docs/plans/<filename>.md`. Default next step is Beads + Ralph execution via superpowers:beads-ralph-execution.
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
+If you want a different execution path, choose one:
+1. Subagent-Driven (this session)
+2. Parallel Session (separate, executing-plans)
+3. Beads + Ralph (default)
+"**
 
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
-
-**Which approach?"**
+**Default (no override):**
+- **REQUIRED SUB-SKILL:** Use superpowers:beads-ralph-execution
+- Convert plan to Beads epics/tasks first
+- Execute one task at a time with Ralph implementer + spec-review + quality-review loop
 
 **If Subagent-Driven chosen:**
 - **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
