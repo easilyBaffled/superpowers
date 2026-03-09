@@ -33,7 +33,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans OR superpowers:beads-ralph-execution to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -94,15 +94,27 @@ git commit -m "feat: add specific feature"
 - Reference relevant skills with @ syntax
 - DRY, YAGNI, TDD, frequent commits
 
+## Beads/Ralph Metadata (Required)
+
+For every `### Task N` section, include:
+- **Epic:** short epic name for grouping in Beads
+- **Task ID:** stable slug (e.g., `auth-hook-install`)
+- **Dependencies:** `none` or explicit task IDs
+- **Acceptance Criteria:** concrete checklist
+
+This metadata enables deterministic conversion from plan markdown to Beads epics/tasks.
+
 ## Execution Handoff
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `docs/plans/<filename>.md`. Three execution options:**
 
 **1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
 
 **2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
+
+**3. Beads + Ralph** - Convert this plan to Beads epics/tasks, then execute each task with Ralph-managed fresh Claude/Cursor instances with spec+quality review gates
 
 **Which approach?"**
 
@@ -114,3 +126,8 @@ After saving the plan, offer execution choice:
 **If Parallel Session chosen:**
 - Guide them to open new session in worktree
 - **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
+
+**If Beads + Ralph chosen:**
+- **REQUIRED SUB-SKILL:** Use superpowers:beads-ralph-execution
+- Convert plan to Beads epics/tasks first
+- Execute one task at a time with Ralph implementer + reviewer loop
